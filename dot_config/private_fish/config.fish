@@ -12,7 +12,7 @@ if status is-interactive
     abbr --add cd.. cd ..
     abbr --add c clear
     abbr --add cls clear
-    abbr --add repo cd ~/dev/repos
+    abbr --add repo cd ~/dev/repo
 
     # docker
     abbr --add dc docker compose
