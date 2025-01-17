@@ -12,7 +12,8 @@ if status is-interactive
     abbr --add cd.. cd ..
     abbr --add c clear
     abbr --add cls clear
-    abbr --add repo cd ~/dev/repo
+    abbr --add repos cd ~/dev/repos
+    alias sd "cd ~ && cd (find * -type d | fzf)"
 
     # docker
     abbr --add dc docker compose
