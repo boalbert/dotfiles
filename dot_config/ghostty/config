@@ -1,0 +1,30 @@
+# Style
+background = 282c34
+shell-integration = fish
+confirm-close-surface = false
+
+
+# Keybindings
+## List of keybind: https://github.com/ghostty-org/ghostty/blob/d6e76858164d52cff460fedc61ddf2e560912d71/src/input/key.zig#L255
+## Overview: https://ghostty.org/docs/config/keybind
+## Trigger sequences: https://ghostty.org/docs/config/keybind/sequence
+keybind =   ctrl+z=close_surface
+keybind =   ctrl+a>n=new_window
+keybind =   ctrl+a>x=close_surface
+
+## Splits
+keybind =   ctrl+a>left=new_split:left
+keybind =   ctrl+a>right=new_split:right
+keybind =   ctrl+a>up=new_split:up
+keybind =   ctrl+a>down=new_split:down
+
+## Nav splits
+keybind =   ctrl+s>left=goto_split:left
+keybind =   ctrl+s>right=goto_split:right
+keybind =   ctrl+s>up=goto_split:top
+keybind =   ctrl+s>down=goto_split:bottom
+
+## Show/Hide Ghostty - Globally
+keybind = global:cmd+shift+g=toggle_visibility
+keybind = global:cmd+shift+e=toggle_quick_terminal
+
