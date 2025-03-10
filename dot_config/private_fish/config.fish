@@ -32,6 +32,7 @@ if status is-interactive
     abbr --add common cd ~/dev/repos/brandon/brandon-common-camel
     abbr --add docs cd ~/dev/repos/brandon/int-docs
     abbr --add warehouse cd ~/dev/repos/brandon/brandon-camel-warehouse-sweden-adapter
+    abbr --add jeeves cd ~/dev/repos/brandon/brandon-camel-jeeves-adapter
 
     ## replace cat with bat
     abbr --add cat bat
@@ -43,6 +44,8 @@ if status is-interactive
     # set -Ux EDITOR "vim"
     set -x VIMINIT 'source ~/.config/vim/.vimrc'
 
+    set -gx PATH /opt/homebrew/opt/curl/bin $PATH
+
     # Open scratch notes in vim
     function scn
         vim +normal\ Go ~/dev/notes/scratch.txt
@@ -51,7 +54,6 @@ if status is-interactive
     # Set default node version via nvm
     set -Ux nvm_default_version v22.11.0
 
-    # Adding a comment to trigger chezmoi
     # Start ssh agent
     set SSH_AUTH_SOCK /var/folders/5l/5khp6mf95qqg27fcwxy3hn480000gn/T//ssh-petcZlkXvLcc/agent.7616
 
@@ -61,6 +63,5 @@ if status is-interactive
 
     # Set up fzf key binding: https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration
     fzf --fish | source
-
 
 end
