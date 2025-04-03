@@ -13,6 +13,7 @@ if status is-interactive
     abbr --add c clear
     abbr --add cls clear
     abbr --add repos cd ~/dev/repos
+    abbr --add bra cd ~/dev/repos/brandon/
     alias sd "cd ~ && cd (find * -type d | fzf)"
 
     # docker
@@ -63,5 +64,29 @@ if status is-interactive
 
     # Set up fzf key binding: https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration
     fzf --fish | source
+
+    # Allow ctrl+x > ctrl+e to edit current command buffer
+    bind \cx\ce edit_command_buffer
+
+    # Pretty print Java project to terminal
+    function java-pkg-tree
+        find src -name "*.java" | \
+        sed 's/\.java$//' | \
+        sed 's/^src\///' | \
+        sed 's/\//./g' | \
+        sort | \
+        awk 'BEGIN {prev=""; indent=""}{
+            split($0,parts,".");
+            pkg="";
+            for(i=1;i<length(parts);i++) {
+                pkg = pkg (i>1?".":"") parts[i];
+            };
+            if(pkg!=prev) {
+                printf("\n%s\n", pkg);
+                prev=pkg;
+            };
+            printf("  └── %s\n", parts[length(parts)]);
+        }'
+    end
 
 end
