@@ -6,6 +6,7 @@ if status is-interactive
     abbr --add gc git commit
     abbr --add gco git checkout
     abbr --add gpr git pull --rebase
+    abbr --add gca git commit --amend
 
     ## navigation etc
     abbr --add l ls -laF
