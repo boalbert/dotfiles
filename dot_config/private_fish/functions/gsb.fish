@@ -56,11 +56,29 @@ function gsb --description "Git smart branches: shows branches sorted by last ch
     # Sort branches by checkout time (newest first)
     set sorted_branches (sort -r $temp_file)
 
+    # Column widths
+    set branch_width 35
+    set date_width 19
+    set msg_width 50
+
+    # Get terminal width to adjust message column if needed
+    set term_width (tput cols)
+    if test $term_width -gt 0
+        # Calculate available space for message column
+        set available_width (math $term_width - $branch_width - $date_width - 7) # 7 for separators and spacing
+        if test $available_width -gt 20 # Ensure at least 20 chars for message
+            set msg_width $available_width
+        end
+    end
+
     # Display header
     set_color blue
-    printf "%-30s | %-19s | %s\n" "BRANCH" "LAST CHECKED OUT" "LATEST COMMIT"
-    printf "%-30s | %-19s | %s\n" (string repeat -n 30 "-") (string repeat -n 19 "-") (string repeat -n 50 "-")
+    printf "%-"$branch_width"s | %-"$date_width"s | %s\n" "BRANCH" "LAST CHECKED OUT" "LATEST COMMIT"
+    printf "%-"$branch_width"s | %-"$date_width"s | %s\n" (string repeat -n $branch_width "-") (string repeat -n $date_width "-") (string repeat -n $msg_width "-")
     set_color normal
+
+    # Current branch
+    set current_branch (git branch --show-current)
 
     # Display branch information
     for branch_data in $sorted_branches
@@ -82,16 +100,32 @@ function gsb --description "Git smart branches: shows branches sorted by last ch
             set formatted_date "unknown"
         end
 
-        # Highlight current branch
-        if test "$branch" = (git branch --show-current)
-            set_color green
-            printf "%-30s | " "$branch *"
-            set_color normal
-        else
-            printf "%-30s | " "$branch"
+        # Prepare branch display name (with or without asterisk)
+        set branch_display $branch
+        if test "$branch" = "$current_branch"
+            set branch_display "$branch *"
         end
 
-        printf "%-19s | %s\n" "$formatted_date" "$commit_message"
+        # Truncate branch name if too long
+        if test (string length "$branch_display") -gt (math $branch_width - 2)
+            set branch_display (string sub -l (math $branch_width - 5) "$branch_display")"..."
+        end
+
+        # Highlight current branch
+        if test "$branch" = "$current_branch"
+            set_color green
+            printf "%-"$branch_width"s | " "$branch_display"
+            set_color normal
+        else
+            printf "%-"$branch_width"s | " "$branch_display"
+        end
+
+        # Truncate commit message if needed
+        if test (string length "$commit_message") -gt $msg_width
+            set commit_message (string sub -l (math $msg_width - 3) "$commit_message")"..."
+        end
+
+        printf "%-"$date_width"s | %s\n" "$formatted_date" "$commit_message"
     end
 
     # Clean up
