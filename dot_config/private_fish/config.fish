@@ -7,6 +7,10 @@ if status is-interactive
     abbr --add gco git checkout
     abbr --add gpr git pull --rebase
     abbr --add gca git commit --amend
+    abbr --add lg lazygit
+
+    # kubernetes
+    abbr --add k kubectl
 
     ## navigation etc
     abbr --add l ls -laF
