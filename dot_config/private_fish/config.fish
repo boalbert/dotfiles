@@ -46,8 +46,6 @@ if status is-interactive
     abbr --add sourcefish source ~/.config/fish/config.fish
 
     # Change default location of vim config
-    # set -Ux VISUAL "vim"
-    # set -Ux EDITOR "vim"
     set -x VIMINIT 'source ~/.config/vim/.vimrc'
 
     set -gx PATH /opt/homebrew/opt/curl/bin $PATH
