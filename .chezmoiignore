@@ -9,3 +9,5 @@
 .config/fish/functions/fisher.fish
 .config/fish/functions/__sdkman-noexport-init.sh
 .config/fish/themes/
+.config/fish/functions/__fzfcmd.fish
+.config/fish/functions/fzf_configure_bindings.fish
